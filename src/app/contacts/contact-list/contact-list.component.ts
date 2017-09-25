@@ -4,11 +4,12 @@ import { ContactService } from '../contact.service';
 import { ContactDetailsComponent } from '../contact-details/contact-details.component';
 
 @Component({
-  selector: 'app-contact-list',
+  selector: 'contact-list',
   templateUrl: './contact-list.component.html',
   styleUrls: ['./contact-list.component.css'],
   providers: [ContactService]
 })
+
 export class ContactListComponent implements OnInit {
 
   contacts: Contact[]
@@ -17,19 +18,19 @@ export class ContactListComponent implements OnInit {
   constructor(private contactService: ContactService) { }
 
   ngOnInit() {
-    this.contactService
-    .getContacts()
-    .then((contacts: Contact[]) => {
-      this.contacts = contacts.map((contact) => {
-        if (!contact.phone) {
-          contact.phone = {
-            mobile: '',
-            work: ''
+     this.contactService
+      .getContacts()
+      .then((contacts: Contact[]) => {
+        this.contacts = contacts.map((contact) => {
+          if (!contact.phone) {
+            contact.phone = {
+              mobile: '',
+              work: ''
+            }
           }
-        }
-        return contact;
+          return contact;
+        });
       });
-    });
   }
 
   private getIndexOfContact = (contactId: String) => {
@@ -79,5 +80,4 @@ export class ContactListComponent implements OnInit {
     }
     return this.contacts;
   }
-
 }

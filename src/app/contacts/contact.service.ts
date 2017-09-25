@@ -23,6 +23,25 @@ export class ContactService {
      .catch(this.handleError);
   }
 
+  // get("/api/contacts/:id") endpoint not used by Angular app
+
+// delete("/api/contacts/:id")
+deleteContact(delContactId: String): Promise<void | String> {
+  return this.http.delete(this.contactsUrl + '/' + delContactId)
+     .toPromise()
+     .then(response => response.json() as String)
+     .catch(this.handleError);
+}
+
+// put("/api/contacts/:id")
+updateContact(putContact: Contact): Promise<void | Contact> {
+  var putUrl = this.contactsUrl + '/' + putContact._id;
+  return this.http.put(putUrl, putContact)
+     .toPromise()
+     .then(response => response.json() as Contact)
+     .catch(this.handleError);
+}
+
   private handleError (error: any) {
     let errMsg = (error.message) ? error.message :
     error.status ? `${error.status} - ${error.statusText}` : 'Server error';
